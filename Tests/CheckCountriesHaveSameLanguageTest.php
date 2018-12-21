@@ -5,7 +5,7 @@ namespace Tests;
 use App\CountryCheck;
 use PHPUnit\Framework\TestCase;
 
-class GetCountryLanguageTest extends TestCase
+class CheckCountriesHaveSameLanguageTest extends TestCase
 {
     /** @test */
     function it_has_method_getCountryLanguage()

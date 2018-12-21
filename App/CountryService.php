@@ -5,6 +5,13 @@ namespace App;
 class CountryService
 {
 
+    /**
+     * Returns the country language code in ISO 639 1.
+     *
+     * @param string $country
+     *
+     * @return string|null
+     */
     public function getCountryLanguage(string $country)
     {
         $curl = curl_init("https://restcountries.eu/rest/v2/name/{$country}?fullText=true");
@@ -26,6 +33,13 @@ class CountryService
         return $response[0]['languages'][0]['iso639_1'];
     }
 
+    /**
+     * Returns an array of countries that have the language.
+     *
+     * @param string $languageCode
+     *
+     * @return array|null
+     */
     public function getCountriesWithLanguage(string $languageCode)
     {
         $curl = curl_init("https://restcountries.eu/rest/v2/lang/{$languageCode}?fields=name");

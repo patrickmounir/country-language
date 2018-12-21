@@ -7,6 +7,11 @@ use PHPUnit\Framework\TestCase;
 
 class GetCountriesWithSameLanguageTest extends TestCase
 {
+    /**
+     * Returns array of countries with the spanish language.
+     *
+     * @return array
+     */
     private function countriesThatSpeakSpanish()
     {
        $countries = json_decode('[{"name":"Argentina"},{"name":"Belize"},{"name":"Bolivia (Plurinational State of)"},{"name":"Chile"},{"name":"Colombia"},{"name":"Costa Rica"},{"name":"Cuba"},{"name":"Dominican Republic"},{"name":"Ecuador"},{"name":"El Salvador"},{"name":"Equatorial Guinea"},{"name":"Guam"},{"name":"Guatemala"},{"name":"Honduras"},{"name":"Mexico"},{"name":"Nicaragua"},{"name":"Panama"},{"name":"Paraguay"},{"name":"Peru"},{"name":"Puerto Rico"},{"name":"Spain"},{"name":"Uruguay"},{"name":"Venezuela (Bolivarian Republic of)"},{"name":"Western Sahara"}]', true);
@@ -14,6 +19,11 @@ class GetCountriesWithSameLanguageTest extends TestCase
         return collect($countries)->pluck('name')->toArray();
     }
 
+    /**
+     * Returns array of countries with the english language.
+     *
+     * @return array
+     */
     private function countriesThatSpeakEnglish()
     {
         $countries = json_decode('[{"name":"China"},{"name":"Hong Kong"},{"name":"Macao"},{"name":"Singapore"},{"name":"Taiwan"}]', true);
