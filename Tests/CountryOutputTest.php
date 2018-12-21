@@ -76,7 +76,7 @@ class CountryOutputTest extends TestCase
         $output = $countryOutput->handle(['Spain', 'UK']);
 
         $this->assertEquals(
-            "Spain and UK do not speak the same language",
+            "Spain and UK do not speak the same language\n",
             $output
         );
     }
@@ -89,7 +89,7 @@ class CountryOutputTest extends TestCase
         $output = $countryOutput->handle(['Spain', 'Uruguay']);
 
         $this->assertEquals(
-            "Spain and Uruguay speak the same language",
+            "Spain and Uruguay speak the same language\n",
             $output
         );
     }

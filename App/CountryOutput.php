@@ -45,8 +45,7 @@ class CountryOutput
 
             $countriesWithSameLanguage = implode(', ', $this->countryService->getCountriesWithLanguage($language));
 
-            return "Country language code: {$language}
-                    {$countries[0]} speaks same language with these countries: {$countriesWithSameLanguage}";
+            return "Country language code: {$language}\n{$countries[0]} speaks same language with these countries: {$countriesWithSameLanguage}\n";
         }
 
         if (count($countries) == 2) {
@@ -54,7 +53,7 @@ class CountryOutput
 
             $verb = $haveSameLanguage? 'speak' : 'do not speak';
 
-            return "{$countries[0]} and {$countries[1]} {$verb} the same language";
+            return "{$countries[0]} and {$countries[1]} {$verb} the same language\n";
         }
     }
 }
