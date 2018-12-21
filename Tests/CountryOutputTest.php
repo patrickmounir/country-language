@@ -38,4 +38,15 @@ class CountryOutputTest extends TestCase
 
         $this->assertInstanceOf(CountryCheck::class, $countryOutput->getCountryChecker());
     }
+
+    /** @test */
+    function it_has_method_handle()
+    {
+        $countryOutput = new CountryOutput();
+
+        $this->assertTrue(
+            method_exists($countryOutput, 'handle'),
+            'Class should have method handle'
+        );
+    }
 }

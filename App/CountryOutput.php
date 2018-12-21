@@ -18,6 +18,7 @@ class CountryOutput
     public function __construct()
     {
         $this->countryService = new CountryService();
+
         $this->countryChecker = new CountryCheck();
     }
 
@@ -35,5 +36,10 @@ class CountryOutput
     public function getCountryChecker()
     {
         return $this->countryChecker;
+    }
+    
+    public function handle(array $countries)
+    {
+
     }
 }
