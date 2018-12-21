@@ -61,6 +61,13 @@ class CountryService
         return collect($response)->pluck('name')->toArray();
     }
 
+    /**
+     * Checks if Country Exists.
+     *
+     * @param $country
+     *
+     * @return bool
+     */
     public function countryExists($country)
     {
         $curl = curl_init("https://restcountries.eu/rest/v2/name/{$country}?fullText=true&fields=name");
