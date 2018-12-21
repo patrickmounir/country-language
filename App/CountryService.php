@@ -63,6 +63,22 @@ class CountryService
 
     public function countryExists($country)
     {
-        
+        $curl = curl_init("https://restcountries.eu/rest/v2/name/{$country}?fullText=true&fields=name");
+
+        $options = [
+            CURLOPT_RETURNTRANSFER => true
+        ];
+
+        curl_setopt_array($curl, $options);
+
+        $response = json_decode(curl_exec($curl), true);
+
+        if (array_has($response, ['status']) && $response['status'] == 404) {
+            return false;
+        }
+
+        curl_close($curl);
+
+        return true;
     }
 }
