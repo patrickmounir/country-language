@@ -37,9 +37,24 @@ class CountryOutput
     {
         return $this->countryChecker;
     }
-    
+
     public function handle(array $countries)
     {
+        if (count($countries) == 1) {
+            $language = $this->countryService->getCountryLanguage($countries[0]);
 
+            $countriesWithSameLanguage = implode(', ', $this->countryService->getCountriesWithLanguage($language));
+
+            return "Country language code: {$language}
+                    {$countries[0]} speaks same language with these countries: {$countriesWithSameLanguage}";
+        }
+
+        if (count($countries) == 2) {
+            $haveSameLanguage = $this->countryChecker->checkHaveSameLanguage($countries[0], $countries[1]);
+
+            $verb = $haveSameLanguage? 'speak' : 'do not speak';
+
+            return "{$countries[0]} and {$countries[1]} {$verb} the same language";
+        }
     }
 }

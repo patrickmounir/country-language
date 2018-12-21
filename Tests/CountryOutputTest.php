@@ -49,4 +49,48 @@ class CountryOutputTest extends TestCase
             'Class should have method handle'
         );
     }
+
+    /** @test */
+    function it_when_handle_is_called_with_array_of_country_its_language_and_other_countries_return_in_string()
+    {
+        $countryOutput = new CountryOutput();
+
+        $output = $countryOutput->handle(['Spain']);
+
+        $this->assertContains(
+            "Country language code: es",
+            $output
+        );
+
+        $this->assertContains(
+            "Spain speaks same language with these countries: ",
+            $output
+        );
+    }
+
+    /** @test */
+    function it_when_handle_is_called_with_array_of_two_return_a_string_if_they_do_not_speak_the_same_language()
+    {
+        $countryOutput = new CountryOutput();
+
+        $output = $countryOutput->handle(['Spain', 'UK']);
+
+        $this->assertEquals(
+            "Spain and UK do not speak the same language",
+            $output
+        );
+    }
+
+    /** @test */
+    function it_when_handle_is_called_with_array_of_two_return_a_string_if_they_speak_the_same_language()
+    {
+        $countryOutput = new CountryOutput();
+
+        $output = $countryOutput->handle(['Spain', 'Uruguay']);
+
+        $this->assertEquals(
+            "Spain and Uruguay speak the same language",
+            $output
+        );
+    }
 }
