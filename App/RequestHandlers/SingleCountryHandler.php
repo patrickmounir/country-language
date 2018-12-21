@@ -6,6 +6,13 @@ use App\CountryService;
 
 class SingleCountryHandler implements RequestHandler
 {
+    /**
+     * Handles the request of passing a single country.
+     *
+     * @param $countries
+     *
+     * @return string
+     */
     public function handle($countries)
     {
         $countryService = new CountryService();

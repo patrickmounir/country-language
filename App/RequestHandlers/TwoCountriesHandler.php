@@ -6,6 +6,13 @@ use App\CountryCheck;
 
 class TwoCountriesHandler implements RequestHandler
 {
+    /**
+     * Handles the request of passing two countries.
+     *
+     * @param $countries
+     *
+     * @return string
+     */
     public function handle($countries)
     {
         $countryChecker = new CountryCheck();
