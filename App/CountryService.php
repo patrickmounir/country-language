@@ -6,6 +6,30 @@ class CountryService
 {
 
     /**
+     * @var
+     */
+    private $curl;
+
+    /**
+     * @var string
+     */
+    private $baseURI;
+
+    /**
+     * CountryService constructor.
+     *
+     * @param null $baseURI
+     */
+    public function __construct($baseURI = null)
+    {
+        if (!$baseURI) {
+            $baseURI = "https://restcountries.eu/rest/v2";
+        }
+
+        $this->baseURI = $baseURI;
+    }
+
+    /**
      * Returns the country language code in ISO 639 1.
      *
      * @param string $country
@@ -14,23 +38,13 @@ class CountryService
      */
     public function getCountryLanguage(string $country)
     {
-        $curl = curl_init("https://restcountries.eu/rest/v2/name/{$country}?fullText=true");
+        $requestURI = "/name/{$country}?fullText=true";
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true
-        ];
+        $this->prepareCurl($requestURI);
 
-        curl_setopt_array($curl, $options);
+        $response = $this->execute();
 
-        $response = json_decode(curl_exec($curl), true);
-
-        if (array_has($response, ['status']) && $response['status'] == 404) {
-                return null;
-        }
-
-        curl_close($curl);
-
-        return $response[0]['languages'][0]['iso639_1'];
+        return $response? $response[0]['languages'][0]['iso639_1'] : $response;
     }
 
     /**
@@ -42,23 +56,13 @@ class CountryService
      */
     public function getCountriesWithLanguage(string $languageCode)
     {
-        $curl = curl_init("https://restcountries.eu/rest/v2/lang/{$languageCode}?fields=name");
+        $requestURI = "/lang/{$languageCode}?fields=name";
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true
-        ];
+        $this->prepareCurl($requestURI);
 
-        curl_setopt_array($curl, $options);
+        $response = $this->execute();
 
-        $response = json_decode(curl_exec($curl), true);
-
-        if (array_has($response, ['status']) && $response['status'] == 404) {
-            return null;
-        }
-
-        curl_close($curl);
-
-        return collect($response)->pluck('name')->toArray();
+        return $response? collect($response)->pluck('name')->toArray() : $response;
     }
 
     /**
@@ -70,22 +74,47 @@ class CountryService
      */
     public function countryExists($country)
     {
-        $curl = curl_init("https://restcountries.eu/rest/v2/name/{$country}?fullText=true&fields=name");
+        $requestURI = "/name/{$country}?fullText=true&fields=name";
+
+        $this->prepareCurl($requestURI);
+
+        $response = $this->execute();
+
+        return !is_null($response);
+    }
+
+    /**
+     * Prepares Curl request.
+     *
+     * @param $requestURI
+     */
+    private function prepareCurl($requestURI)
+    {
+        $this->curl = curl_init($this->baseURI.$requestURI);
 
         $options = [
             CURLOPT_RETURNTRANSFER => true
         ];
 
-        curl_setopt_array($curl, $options);
+        curl_setopt_array($this->curl, $options);
+    }
 
-        $response = json_decode(curl_exec($curl), true);
+    /**
+     * Execute and decodes the response of the curl request.
+     *
+     * @return array|null
+     */
+    private function execute()
+    {
+        /** @var array $response */
+        $response = json_decode(curl_exec($this->curl), true);
+
+        curl_close($this->curl);
 
         if (array_has($response, ['status']) && $response['status'] == 404) {
-            return false;
+            return null;
         }
 
-        curl_close($curl);
-
-        return true;
+        return $response;
     }
 }
