@@ -25,4 +25,9 @@ class CountryService
 
         return $response[0]['languages'][0]['iso639_1'];
     }
+
+    public function getCountriesWithLanguage()
+    {
+        
+    }
 }
