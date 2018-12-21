@@ -60,4 +60,9 @@ class CountryService
 
         return collect($response)->pluck('name')->toArray();
     }
+
+    public function countryExists($country)
+    {
+        
+    }
 }

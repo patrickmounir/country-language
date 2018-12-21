@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class CheckCountriesHaveSameLanguageTest extends TestCase
 {
     /** @test */
-    function it_has_method_getCountryLanguage()
+    function it_has_method_checkHaveSameLanguage()
     {
         $countryCheck = new CountryCheck();
 
