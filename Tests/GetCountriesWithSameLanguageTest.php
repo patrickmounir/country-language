@@ -13,6 +13,14 @@ class GetCountriesWithSameLanguageTest extends TestCase
 
         return collect($countries)->pluck('name')->toArray();
     }
+
+    private function countriesThatSpeakEnglish()
+    {
+        $countries = json_decode('[{"name":"China"},{"name":"Hong Kong"},{"name":"Macao"},{"name":"Singapore"},{"name":"Taiwan"}]', true);
+
+        return collect($countries)->pluck('name')->toArray();
+    }
+
     /** @test */
     function it_has_method_getCountriesWithLanguage()
     {
@@ -29,11 +37,20 @@ class GetCountriesWithSameLanguageTest extends TestCase
     {
         $countryService = new CountryService();
 
-
         $this->assertEquals(
             $this->countriesThatSpeakSpanish(),
-            $countryService->getCountriesWithLanguage('es'),
-            'Class does not have method getCountriesWithLanguage'
+            $countryService->getCountriesWithLanguage('es')
+        );
+    }
+
+    /** @test */
+    function it_returns_the_countries_that_speak_chinese()
+    {
+        $countryService = new CountryService();
+
+        $this->assertEquals(
+            $this->countriesThatSpeakEnglish(),
+            $countryService->getCountriesWithLanguage('zh')
         );
     }
 }
