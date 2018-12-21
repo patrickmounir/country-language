@@ -12,10 +12,14 @@ class CountryService
         $options = [
             CURLOPT_RETURNTRANSFER => true
         ];
-        
+
         curl_setopt_array($curl, $options);
 
         $response = json_decode(curl_exec($curl), true);
+
+        if (array_has($response, ['status']) && $response['status'] == 404) {
+                return null;
+        }
 
         curl_close($curl);
 
