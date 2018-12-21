@@ -25,4 +25,12 @@ class GetCountryLanguageTest extends TestCase
 
         $this->assertTrue($countryCheck->checkHaveSameLanguage('Spain', 'Argentina'));
     }
+
+    /** @test */
+    function it_returns_false_when_passing_spain_and_uk()
+    {
+        $countryCheck = new CountryCheck();
+
+        $this->assertFalse($countryCheck->checkHaveSameLanguage('Spain', 'UK'));
+    }
 }
