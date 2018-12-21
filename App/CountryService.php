@@ -38,6 +38,10 @@ class CountryService
 
         $response = json_decode(curl_exec($curl), true);
 
+        if (array_has($response, ['status']) && $response['status'] == 404) {
+            return null;
+        }
+
         curl_close($curl);
 
         return collect($response)->pluck('name')->toArray();

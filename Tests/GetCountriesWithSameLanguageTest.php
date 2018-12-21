@@ -53,4 +53,14 @@ class GetCountriesWithSameLanguageTest extends TestCase
             $countryService->getCountriesWithLanguage('zh')
         );
     }
+
+    /** @test */
+    function it_returns_null_if_language_doesnt_exist()
+    {
+        $countryService = new CountryService();
+
+        $this->assertNull(
+            $countryService->getCountriesWithLanguage('cn')
+        );
+    }
 }
