@@ -17,4 +17,12 @@ class GetCountryLanguageTest extends TestCase
             'Class does not have method checkHaveSameLanguage'
         );
     }
+
+    /** @test */
+    function it_returns_true_when_passing_spain_and_argentina()
+    {
+        $countryCheck = new CountryCheck();
+
+        $this->assertTrue($countryCheck->checkHaveSameLanguage('Spain', 'Argentina'));
+    }
 }
